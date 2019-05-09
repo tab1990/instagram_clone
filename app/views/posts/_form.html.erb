@@ -11,8 +11,18 @@
     </div>
   <% end %>
 
+
   <div class="actions">
-    <%= form.text_area :content %>
+    <div>
+      <%= form.text_area :content %>
+    </div>
+    <div>
+      <%= image_tag @post.image.url if @post.image && @post.image.url %>
+    </div>
+    <div>
+      <%= form.file_field :image %>
+    </div>
     <%= form.submit %>
   </div>
+  <%= form.hidden_field :image_cache %>
 <% end %>

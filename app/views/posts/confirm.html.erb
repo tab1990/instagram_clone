@@ -1,12 +1,15 @@
 <h2>確認する</h2>
+<%= image_tag @post.image.url %>
 <%= @post.content %>
 
 <%= form_with(model:@post,local: true) do |f| %>
   <%= f.hidden_field :content %>
+  <%= f.hidden_field :image_cache %>
   <%= f.submit %>
 <% end %>
 
 <%= form_with(model:@post,local: true,url:new_post_path,method: 'get') do |f| %>
   <%= f.hidden_field :content %>
+  <%= f.hidden_field :image_cache %>
   <%= f.submit 'もどる',name: 'back' %>
 <% end %>
