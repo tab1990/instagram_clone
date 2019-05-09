@@ -1,0 +1,12 @@
+<h2>確認する</h2>
+<%= @post.content %>
+
+<%= form_with(model:@post,local: true) do |f| %>
+  <%= f.hidden_field :content %>
+  <%= f.submit %>
+<% end %>
+
+<%= form_with(model:@post,local: true,url:new_post_path,method: 'get') do |f| %>
+  <%= f.hidden_field :content %>
+  <%= f.submit 'もどる',name: 'back' %>
+<% end %>
