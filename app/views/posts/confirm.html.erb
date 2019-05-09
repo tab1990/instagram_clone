@@ -1,5 +1,5 @@
 <h2>確認する</h2>
-<%= image_tag @post.image.url %>
+<%= image_tag @post.image.url if @post.image.url %>
 <%= @post.content %>
 
 <%= form_with(model:@post,local: true) do |f| %>

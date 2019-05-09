@@ -26,12 +26,13 @@ class PostsController < ApplicationController
   end
 
   def confirm
-    @post=Post.new(post_params)
+    @post=current_user.posts.build(post_params)
     render 'new' if @post.invalid?
   end
 
   def create
-    @post = Post.new(post_params)
+
+    @post = current_user.posts.build(post_params)
     if @post.save
       redirect_to @post, notice: 'Post was successfully created.'
     else
