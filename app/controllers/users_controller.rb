@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user,only: [:show,:edit,:update,:destroy,:edit_password,:edit_pass,:profile_file]
+  before_action :authority_check,only: [:show,:edit,:update,:destroy,:edit_password,:edit_pass,:profile_file]
 
   def new
     @user=User.new
@@ -60,5 +61,12 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name,:email,:password,:password_confirmation,:image,:remove_image)
+  end
+
+  def authority_check
+    unless current_user.id == @user.id
+      flash[:notice] = 'アクセス権限がありません'
+      redirect_to user_path(current_user.id)
+    end
   end
 end
