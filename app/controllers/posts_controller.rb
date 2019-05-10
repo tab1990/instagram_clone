@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy,:post_file]
   before_action :authority_check, only: [:edit, :update, :destroy,:post_file]
+
   def index
     @posts = Post.all
   end
@@ -29,9 +30,9 @@ class PostsController < ApplicationController
   end
 
   def create
-
     @post = current_user.posts.build(post_params)
     if @post.save
+      PostMailer.post_mail(@post).deliver
       redirect_to @post, notice: 'Post was successfully created.'
     else
       render 'new'
