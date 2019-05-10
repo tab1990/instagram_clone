@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy,:post_file]
 
   # GET /posts
   # GET /posts.json
@@ -43,20 +43,23 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
-    respond_to do |format|
-      if @post.update(post_params)
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-        format.json { render :show, status: :ok, location: @post }
-      else
-        format.html { render :edit }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+    if @post.update(post_params)
+      redirect_to @post, notice: 'Post was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
     @post.destroy
     redirect_to posts_path, notice: 'Post was successfully destroyed.'
+  end
+
+  def post_file
+    @post.remove_image!
+    @post.save
+    flash[:notice]='画像を削除しました'
+    redirect_to post_path(@post.id)
   end
 
   private

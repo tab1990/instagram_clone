@@ -26,3 +26,9 @@
   </div>
   <%= form.hidden_field :image_cache %>
 <% end %>
+
+<% if action_name == 'edit' %>
+  <%= form_with(model: @post,local: true,url: post_file_post_path) do |f| %>
+    <%= f.submit "画像を削除する" %>
+  <% end %>
+<% end %>

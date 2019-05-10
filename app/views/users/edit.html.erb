@@ -1,0 +1,22 @@
+<h2>編集する</h2>
+
+<%= form_with(model: @user,local: true) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+  <div>
+    <%= image_tag @user.image.url if @user.image.url %>
+  </div>
+  <%= f.label :image %>
+  <%= f.file_field :image %>
+
+  <%= f.submit "更新する" %>
+<% end %>
+
+<%= form_with(model: @user,local: true,url: profile_file_user_path) do |f| %>
+  <%= f.submit "プロフィール画像を削除する" %>
+<% end %>
+
+<%= link_to 'パスワードの更新はこちら',edit_password_user_path(@user) %>
