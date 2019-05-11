@@ -23,7 +23,6 @@ class PostsController < ApplicationController
   end
 
   def edit
-
   end
 
   def confirm
@@ -70,20 +69,20 @@ class PostsController < ApplicationController
     @posts = current_user.favorite_posts
   end
 
-
   private
-    def set_post
-      @post = Post.find(params[:id])
-    end
 
-    def post_params
-      params.fetch(:post, {}).permit(:content,:image,:image_cache)
-    end
+  def set_post
+    @post = Post.find(params[:id])
+  end
 
-    def authority_check
-      unless current_user.present? && current_user.id == @post.user.id
-        redirect_to posts_path
-        flash[:notice] = 'アクセス権がありません'
-      end
+  def post_params
+    params.fetch(:post, {}).permit(:content,:image,:image_cache)
+  end
+
+  def authority_check
+    unless current_user.present? && current_user.id == @post.user.id
+      redirect_to posts_path
+      flash[:notice] = 'アクセス権がありません'
     end
+  end
 end

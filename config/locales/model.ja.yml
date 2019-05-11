@@ -3,6 +3,7 @@ ja:
     models:
       post: "投稿"
       user: "ユーザー"
+      favorite: "お気に入り"
     attributes:
       post:
         title: "タイトル"
