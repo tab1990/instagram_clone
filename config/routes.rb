@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'posts#index'
   resources :sessions, only: [:new, :create, :destroy]
+  resources :favorites,only:[:create,:destroy]
   resources :users do
     member do
       get :edit_password
@@ -11,6 +12,7 @@ Rails.application.routes.draw do
   resources :posts do
     collection do
       post :confirm
+      get :favorite
     end
     member do
       patch :post_file

@@ -1,12 +1,2 @@
-<h1>Posts</h1>
-
-    <% @posts.each do |post| %>
-    <div>
-        <%= post.content %>
-        <%= post.user.name %>
-        <%= link_to '詳細表示', post %>
-    </div>
-    <% end %>
-<br>
-
-<%= link_to '新規投稿', new_post_path %>
+<h2>投稿一覧</h2>
+<%= render 'index' %>

@@ -1,0 +1,7 @@
+<% @posts.each do |post| %>
+<div>
+    <%= post.content %>
+    <%= post.user.name %>
+    <%= link_to '詳細表示', post_path(post.id) %>
+</div>
+<% end %>

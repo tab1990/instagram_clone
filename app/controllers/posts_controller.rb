@@ -7,6 +7,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @favorite = current_user.favorites.find_by(post_id: @post.id)
   end
 
   def new
@@ -58,6 +59,11 @@ class PostsController < ApplicationController
     flash[:notice]='画像を削除しました'
     redirect_to post_path(@post.id)
   end
+
+  def favorite
+    @posts = current_user.favorite_posts
+  end
+
 
   private
     def set_post
