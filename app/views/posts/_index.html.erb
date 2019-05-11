@@ -1,7 +1,8 @@
 <% @posts.each do |post| %>
-<div>
-    <%= post.content %>
-    <%= post.user.name %>
-    <%= link_to '詳細表示', post_path(post.id) %>
+<div class="index-post">
+  <%= image_tag post.image.url if post.image.url %>
+  <p class="show_content"><%= post.content if post.content %></p>
+  <p>投稿者：<%= post.user.name %></p>
+  <%= link_to '詳細はこちら', post_path(post.id) %>
 </div>
 <% end %>

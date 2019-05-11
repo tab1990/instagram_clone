@@ -3,11 +3,15 @@ class PostsController < ApplicationController
   before_action :authority_check, only: [:edit, :update, :destroy,:post_file]
 
   def index
-    @posts = Post.all
+    if params[:user_id].present?
+      @posts = Post.where(user_id: params[:user_id]).order(updated_at: :desc)
+    else
+      @posts = Post.all.order(updated_at: :desc)
+    end
   end
 
   def show
-    @favorite = current_user.favorites.find_by(post_id: @post.id)
+    @favorite = current_user.favorites.find_by(post_id: @post.id) if current_user.present?
   end
 
   def new
@@ -19,10 +23,7 @@ class PostsController < ApplicationController
   end
 
   def edit
-    unless current_user.id == @post.user.id
-      redirect_to posts_path
-      flash[:notice] = 'アクセス権がありません'
-    end
+
   end
 
   def confirm
@@ -34,7 +35,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     if @post.save
       PostMailer.post_mail(@post).deliver
-      redirect_to @post, notice: 'Post was successfully created.'
+      redirect_to posts_path, notice: '投稿しました'
     else
       render 'new'
     end
@@ -42,7 +43,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to @post, notice: 'Post was successfully updated.'
+      redirect_to @post, notice: '更新しました'
     else
       render :edit
     end
@@ -50,14 +51,19 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_path, notice: 'Post was successfully destroyed.'
+    redirect_to posts_path, notice: '削除しました'
   end
 
   def post_file
-    @post.remove_image!
-    @post.save
-    flash[:notice]='画像を削除しました'
-    redirect_to post_path(@post.id)
+    if @post.image.url
+      @post.remove_image!
+      @post.save
+      flash[:notice]='画像を削除しました'
+      redirect_to post_path(@post.id)
+    else
+      flash.now[:notice]="画像はありません"
+      render 'edit'
+    end
   end
 
   def favorite
@@ -75,7 +81,7 @@ class PostsController < ApplicationController
     end
 
     def authority_check
-      unless current_user.id == @post.user.id
+      unless current_user.present? && current_user.id == @post.user.id
         redirect_to posts_path
         flash[:notice] = 'アクセス権がありません'
       end

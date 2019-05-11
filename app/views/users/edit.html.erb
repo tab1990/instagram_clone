@@ -12,11 +12,13 @@
   <%= f.label :image %>
   <%= f.file_field :image %>
 
-  <%= f.submit "更新する" %>
+  <%= f.submit "更新する",class: 'btn btn-primary' %>
 <% end %>
 
-<%= form_with(model: @user,local: true,url: profile_file_user_path) do |f| %>
-  <%= f.submit "プロフィール画像を削除する" %>
+<% if @user.image.url %>
+  <%= form_with(model: @user,local: true,url: profile_file_user_path) do |f| %>
+    <%= f.submit "プロフィール画像を削除する",class: 'btn btn-default' %>
+  <% end %>
 <% end %>
 
-<%= link_to 'パスワードの更新はこちら',edit_password_user_path(@user) %>
+<%= link_to 'パスワードの更新はこちら',edit_password_user_path(@user),class: 'btn btn-link' %>

@@ -1,7 +1,14 @@
-<h1><%= @user.name %>のページ</h1>
-
+<% if current_user.present? %>
+<h2><%= @user.name %>さんのアカウント情報</h2>
 <%= image_tag @user.image.url if @user.image.url %>
 <p>メールアドレス: <%= @user.email %></p>
+<p>登録日: <%= @user.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+  <% if current_user.id == @user.id %>
+    <%= link_to '編集する', edit_user_path(@user.id),class: 'btn btn-primary' %>
+    <%= link_to '削除する', user_path(@user.id),method: :delete,data: {confirm: '本当に登録を削除しますか？'},class: 'btn btn-danger' %>
+  <% end %>
 
-<%= link_to '編集する', edit_user_path(@user.id) %>
-<%= link_to '削除する', user_path(@user.id),method: :delete,data: {confirm: '本当に？'} %>
+<% else %>
+  <h2><%= @user.name %>さんの投稿一覧</h2>
+  <%= render 'posts/index' %>
+<% end %>

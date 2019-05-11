@@ -1,17 +1,23 @@
-<h2>詳細表示</h2>
-<%= image_tag @post.image.url if @post.image.url %>
-<%= @post.content %>
-<%= @post.user.name %>
 <div>
-  <% if current_user.id == @post.user.id %>
-    <%= link_to '編集する', edit_post_path(@post.id) %>
-    <%= link_to '削除する', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
-  <% else %>
-    <% if @favorite.present? %>
-    <%= link_to 'お気に入り解除する', favorite_path(id: @favorite.id), method: :delete, class: 'btn btn-danger' %>
+  <%= image_tag @post.image.url if @post.image.url %>
+  <p class="show_content"><%= @post.content if @post.content %></p>
+  <p>投稿者：<%= link_to @post.user.name,user_path(@post.user_id) %></p>
+  <p>投稿日：<%= @post.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+  <p>更新日：<%= @post.updated_at.strftime("%Y/%m/%d %H:%M") %></p>
+</div>
+
+<div>
+  <% if current_user.present? %>
+    <% if current_user.id == @post.user.id %>
+      <%= link_to '編集する', edit_post_path(@post.id),class: 'btn btn-primary' %>
+      <%= link_to '削除する', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか?' },class: 'btn btn-danger' %>
     <% else %>
-    <%= link_to 'お気に入りする', favorites_path(post_id: @post.id), method: :post, class: 'btn btn-primary' %>
+      <% if @favorite.present? %>
+        <%= link_to 'お気に入り解除する', favorite_path(id: @favorite.id), method: :delete, class: 'btn btn-danger' %>
+      <% else %>
+        <%= link_to 'お気に入りする', favorites_path(post_id: @post.id), method: :post, class: 'btn btn-primary' %>
+      <% end %>
     <% end %>
   <% end %>
-  <%= link_to '投稿一覧にもどる', posts_path %>
+  <p class="btn btn-link"><%= link_to '投稿一覧にもどる', posts_path %></p>
 </div>
