@@ -1,4 +1,8 @@
 <h2>編集する</h2>
+<div>
+  <%= image_tag @user.image.url if @user.image.url %>
+</div>
+<br>
 
 <%= form_with(model: @user,local: true) do |f| %>
   <%= f.label :name %>
@@ -6,9 +10,7 @@
 
   <%= f.label :email %>
   <%= f.email_field :email %>
-  <div>
-    <%= image_tag @user.image.url if @user.image.url %>
-  </div>
+
   <%= f.label :image %>
   <%= f.file_field :image %>
 
