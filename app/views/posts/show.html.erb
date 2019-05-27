@@ -21,3 +21,13 @@
   <% end %>
   <p class="btn btn-link"><%= link_to '投稿一覧にもどる', posts_path %></p>
 </div>
+
+<h2>コメント一覧</h2>
+<div id="comments_area">
+  <%= render partial: 'comments/index', locals: { comments: @comments, post: @post } %>
+</div>
+
+<%= render partial: 'comments/form', locals: { comment: @comment, post: @post } %>
+
+<%= link_to '編集', edit_post_path(@post) %> |
+<%= link_to '戻る', posts_path %>

@@ -2,6 +2,10 @@ class UsersController < ApplicationController
   before_action :set_user,only: [:show,:edit,:update,:destroy,:edit_password,:edit_pass,:profile_file]
   before_action :authority_check,only: [:edit,:update,:destroy,:edit_password,:edit_pass,:profile_file]
 
+  def index
+    @users = User.all
+  end
+
   def new
     @user=User.new
   end

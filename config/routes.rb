@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     end
   end
   resources :posts do
+    resources :comments
     collection do
       post :confirm
       get :favorite
@@ -18,6 +19,8 @@ Rails.application.routes.draw do
       patch :post_file
     end
   end
+
+  resources :relationships, only: [:create, :destroy]
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end
