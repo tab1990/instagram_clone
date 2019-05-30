@@ -31,6 +31,7 @@
               <li><%= link_to "自分の投稿",posts_path(user_id: current_user.id) %></li>
               <li><%= link_to "お気に入り",favorite_posts_path %></li>
               <li><%= link_to 'ユーザー一覧', users_path %></li>
+              <li><%= link_to '会話一覧', conversations_path %></li>
               <li><%= link_to "ログアウト",session_path(current_user.id),method: :delete %></li>
             <% else %>
               <li><%= link_to "みんなの投稿",posts_path %></li>
