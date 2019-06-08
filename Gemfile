@@ -24,13 +24,16 @@ gem 'dotenv-rails'
 gem 'unicorn'
 gem 'mini_racer', platforms: :ruby
 
+gem 'ed25519'
+gem 'bcrypt_pbkdf'
+
 group :development, :test do
   gem 'capistrano', '3.6.0' # capistranoのツール一式
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   gem 'capistrano3-unicorn'
-  
+
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
