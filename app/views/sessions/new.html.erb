@@ -9,3 +9,9 @@
 
   <p><%= f.submit "ログイン",class: 'btn btn-primary' %></p>
 <% end %>
+
+<%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
+  <%= f.hidden_field :email, value: "test@tbc.com" %>
+  <%= f.hidden_field :password, value: "testtest" %>
+  <%= f.submit 'テストユーザでログイン',class: 'btn btn-default' %>
+<% end %>
