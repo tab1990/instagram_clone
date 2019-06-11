@@ -27,31 +27,35 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params)
+    if @user.email != "test@tbc.com" && @user.update(user_params)
       flash[:success] = 'ユーザ情報を更新しました'
       redirect_to user_path
     else
-      flash.now[:notice]= '更新に失敗しました'
+      flash.now[:notice]= '更新に失敗しました(＃テストユーザでログインしている場合は編集できません。機能表示のために、あえてボタンは表示させてます。)'
       render 'edit'
     end
   end
 
   def destroy
-    @user.destroy
-    session.delete(:user_id)
-    flash[:notice]='ユーザ登録を削除しました'
-    redirect_to new_user_path
+    if @user.email != "test@tbc.com" && @user.destroy
+      session.delete(:user_id)
+      flash[:notice]='ユーザ登録を削除しました'
+      redirect_to new_user_path
+    else
+      flash[:notice]='ユーザ登録を削除できませんでした(＃テストユーザでログインしている場合は削除できません。機能表示のために、あえてボタンは表示させてます。)'
+      redirect_to user_path(@user.id)
+    end
   end
 
   def edit_password
   end
 
   def edit_pass
-      if @user.authenticate(params[:user][:old_password]) && @user.update(user_params)
+      if @user.email != "test@tbc.com" && @user.authenticate(params[:user][:old_password]) && @user.update(user_params)
         flash[:notice] = "パスワードを更新しました"
         redirect_to user_path
       else
-        flash.now[:notice] = "パスワードが更新できませんでした"
+        flash.now[:notice] = "パスワードを更新できませんでした(＃テストユーザでログインしている場合は更新できません。)"
         render 'edit_password'
       end
   end
