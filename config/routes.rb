@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'posts#index'
   resources :sessions, only: [:new, :create, :destroy]
-  resources :favorites,only:[:create,:destroy]
+  resources :favorites,only: [:create,:destroy]
   resources :users do
     member do
       get :edit_password
