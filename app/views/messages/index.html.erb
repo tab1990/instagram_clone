@@ -1,3 +1,5 @@
+<h2><%= "#{@conversation.target_user(current_user).name}さんとの会話" %></h2>
+
 <% if @over_ten %>
   <%= link_to '以前のメッセージ', '?m=all' %>
 <% end %>
@@ -29,6 +31,6 @@
   </div>
     <%= f.text_field :user_id, value: current_user.id, type: "hidden"  %>
   <div>
-    <%= f.submit "メッセージを送る" %>
+    <%= f.submit "メッセージを送る", class: 'btn btn-primary' %>
   </div>
 <% end %>
