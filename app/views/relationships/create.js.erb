@@ -1,2 +1,2 @@
 $("#follow_form_"+"<%= @user.id %>").html("<%= escape_javascript(render partial: 'users/follow_form', locals: { user: @user } ) %>")
-$("#follow_tag_"+"<%= @user.id %>").html("<%= "(フォロー中)" %>")
+$("#follow_tag_"+"<%= @user.id %>").html("<%= escape_javascript(render partial: 'users/follow_tag', locals: { user: @user } ) %>")

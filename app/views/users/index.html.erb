@@ -2,7 +2,7 @@
 <% @users.each do |user| %>
   <% if user != current_user %>
       <div class="item">
-        <div class="item_name"><%= user.name %><span id="follow_tag_<%= user.id %>"></span></div><br />
+        <div class="item_name"><%= user.name %><%= render 'follow_tag', user: user %></div><br />
         <%= render 'follow_form', user: user %>
         <%= link_to "投稿一覧へ", user %>|
         <%= link_to '会話履歴へ', conversations_path(sender_id: current_user.id, recipient_id: user.id), method: :post %>
