@@ -1,0 +1,40 @@
+inherit_from: .rubocop_todo.yml
+
+# "Missing top-level class documentation comment."を無効
+Style/Documentation:
+  Enabled: false
+
+# "Line is too long"を無効
+Metrics/LineLength:
+  Enabled: false
+
+# AbcSizeの上限値を変更（15→20）
+Metrics/AbcSize:
+  Max: 20
+
+# MethodLengthの上限値を変更（12→20）
+Metrics/MethodLength:
+  Max: 20
+
+# MethodLengthを無効
+Metrics/BlockLength:
+  Enabled: false
+
+# module/classの定義方法を無効化
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# AsciiCommentsを許可
+Style/AsciiComments:
+  Enabled: false
+
+AllCops:
+  TargetRubyVersion: 2.6.3
+  Exclude:
+    - 'db/**/*'
+    - 'vendor/**/*'
+    - 'Gemfile'
+    - 'Capfile'
+    - 'config/**/*'
+    - 'spec/**/*'
+    - 'bin/*'

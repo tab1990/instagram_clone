@@ -5,17 +5,22 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
+# Core
 gem 'rails', '~> 5.1.7'
+
+# Middleware
 gem 'pg', '>= 0.18', '< 2.0'
-# gem 'sqlite3'
 gem 'puma', '~> 3.7'
+
+# Frontend
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'carrierwave'
+
+# Backend
 gem 'mini_magick'
 gem 'bcrypt'
 gem 'faker'
@@ -23,12 +28,12 @@ gem 'fog-aws'
 gem 'dotenv-rails'
 gem 'unicorn'
 gem 'mini_racer', platforms: :ruby
-
 gem 'ed25519'
 gem 'bcrypt_pbkdf'
 
 group :development, :test do
-  gem 'capistrano', '3.6.0' # capistranoのツール一式
+  # capistranoのツール一式
+  gem 'capistrano', '3.6.0'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
@@ -37,14 +42,13 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
-
   gem 'spring'
+  gem 'rubocop'
   gem "rspec-rails"
   gem 'spring-commands-rspec'
   gem "factory_bot_rails"
   gem "database_cleaner"
   gem "launchy"
-  gem 'selenium-webdriver'
 end
 
 group :development do

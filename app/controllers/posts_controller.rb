@@ -1,13 +1,13 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy,:post_file]
-  before_action :authority_check, only: [:edit, :update, :destroy,:post_file]
+  before_action :set_post, only: %i[show edit update destroy post_file]
+  before_action :authority_check, only: %i[edit update destroy post_file]
 
   def index
-    if params[:user_id].present?
-      @posts = Post.where(user_id: params[:user_id]).order(updated_at: :desc)
-    else
-      @posts = Post.all.order(updated_at: :desc)
-    end
+    @posts = if params[:user_id].present?
+               Post.where(user_id: params[:user_id]).order(updated_at: :desc)
+             else
+               Post.all.order(updated_at: :desc)
+             end
   end
 
   def show
@@ -17,18 +17,17 @@ class PostsController < ApplicationController
   end
 
   def new
-    if params[:back]
-      @post = Post.new(post_params)
-    else
-      @post = Post.new
-    end
+    @post = if params[:back]
+              Post.new(post_params)
+            else
+              Post.new
+            end
   end
 
-  def edit
-  end
+  def edit; end
 
   def confirm
-    @post=current_user.posts.build(post_params)
+    @post = current_user.posts.build(post_params)
     render 'new' if @post.invalid?
   end
 
@@ -59,10 +58,10 @@ class PostsController < ApplicationController
     if @post.image.url
       @post.remove_image!
       @post.save
-      flash[:notice]='画像を削除しました'
+      flash[:notice] = '画像を削除しました'
       redirect_to post_path(@post.id)
     else
-      flash.now[:notice]="画像はありません"
+      flash.now[:notice] = '画像はありません'
       render 'edit'
     end
   end
@@ -78,13 +77,13 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.fetch(:post, {}).permit(:content,:image,:image_cache)
+    params.fetch(:post, {}).permit(:content, :image, :image_cache)
   end
 
   def authority_check
-    unless current_user.present? && current_user.id == @post.user.id
-      redirect_to posts_path
-      flash[:notice] = 'アクセス権がありません'
-    end
+    return false if current_user == @post.user
+
+    redirect_to posts_path
+    flash[:notice] = 'アクセス権がありません'
   end
 end
