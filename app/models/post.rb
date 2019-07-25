@@ -8,6 +8,7 @@ class Post < ApplicationRecord
 
   private
 
+  # 内容かファイルのどちらかが入力されているかを確認する
   def content_or_image
     content.presence || image.presence
   end
