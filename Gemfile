@@ -10,7 +10,7 @@ gem 'rails', '~> 5.1.7'
 
 # Middleware
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 3.12'
 
 # Frontend
 gem 'sass-rails', '~> 5.0'
